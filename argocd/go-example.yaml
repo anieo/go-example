@@ -7,7 +7,7 @@ metadata:
   namespace: argocd
   annotation:
     argocd-image-updater.argoproj.io/image-list: test=registry-1.docker.io/anieo/go-example
-    argocd-image-updater.argoproj.io/test.allow-tags: 'regexp:^v[0-9]+.[0-9]+-[0-9]+-[0-9a-zA-Z]$'
+    argocd-image-updater.argoproj.io/test.allow-tags: 'regexp:^v[0-9]+.[0-9]+-[0-9]+-[0-9a-zA-Z]+$'
     argocd-image-updater.argoproj.io/test.update-strategy: latest
     argocd-image-updater.argoproj.io/write-back-method: git
 spec:
