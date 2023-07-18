@@ -9,10 +9,10 @@ kind create cluster --name go-cluster --config "./kind-config.yaml"
 
 echo -e "${Green}deploying test nodes${NC}"
 helm repo add argo https://argoproj.github.io/argo-helm
-helm upgrade --install argocd argocd -n argocd 
-helm upgrade --install argocd argo/argo-cd -n argocd -f $WDir/argo-values.yml  
-kubectl apply -f argocd/
-password="$(kubectl get secret -n argocd argocd-initial-admin-secret -o json | jq '.data.password' | base64 -d)"
+kubectl create ns argocd
+helm upgrade --install argocd argo/argo-cd -n argocd
+kubectl apply -f ../argocd/
+password="$(kubectl get secret -n argocd argocd-initial-admin-secret -o json | jq  -r '.data.password' | base64 -d)"
 echo -e "ARGOCD ADMIN USERNAME : admin \nARGOCD ADMIN PASSWORD: $password"
 # kubectl create ns monitoring 
 # kubectl create ns http

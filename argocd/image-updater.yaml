@@ -14,11 +14,8 @@ spec:
   project: default
   source:
     chart: argocd-image-updater
-    plugin:
-      env:
-        - name: helm_values
-          value: |
-
+    helm: 
+      values: |
             config:
               # -- API kind that is used to manage Argo CD applications (`kubernetes` or `argocd`)
               # applicationsAPIKind: "argocd"

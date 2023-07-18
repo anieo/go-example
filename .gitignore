@@ -32,3 +32,4 @@ go.work
 # Built Visual Studio Code Extensions
 *.vsix
 docker-secret.yaml
+repo.yaml
