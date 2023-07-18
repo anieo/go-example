@@ -1,0 +1,74 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    argocd.argoproj.io/tracking-id: 'base:argoproj.io/Application:argocd/argocd-image-updater'
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  name: argocd-image-updater
+  namespace: argocd
+spec:
+  destination:
+    name: in-cluster
+    namespace: argocd
+  project: default
+  source:
+    chart: argocd-image-updater
+    plugin:
+      env:
+        - name: helm_values
+          value: |
+
+            config:
+              # -- API kind that is used to manage Argo CD applications (`kubernetes` or `argocd`)
+              # applicationsAPIKind: "argocd"
+
+              # Described in detail here https://argocd-image-updater.readthedocs.io/en/stable/install/running/#flags
+              # argocd:
+              #   # -- Use the gRPC-web protocol to connect to the Argo CD API
+              #   grpcWeb: true
+              #   # -- Connect to the Argo CD API server at server address
+              #   serverAddress: ""
+              #   # -- If specified, the certificate of the Argo CD API server is not verified.
+              #   insecure: false
+              #   # -- If specified, use an unencrypted HTTP connection to the ArgoCD API instead of TLS.
+              #   plaintext: false
+              #   # -- If specified, the secret with ArgoCD API key will be created.
+              #   token: ""
+
+              # -- Disable kubernetes events
+              disableKubeEvents: false
+
+              # -- Username to use for Git commits
+              gitCommitUser: argocd-image-updater
+
+              # -- E-Mail address to use for Git commits
+              gitCommitMail: ali.maher.1460@gmail.com
+
+              # -- Changing the Git commit message
+              gitCommitTemplate: |
+                build: automatic update of {{ .AppName }}
+
+                {{ range .AppChanges -}}
+                updates image {{ .Image }} tag '{{ .OldTag }}' to '{{ .NewTag }}'
+                {{ end -}}
+
+              # -- ArgoCD Image Update log level
+              logLevel: debug
+
+              # -- ArgoCD Image Updater registries list configuration. More information [here](https://argocd-image-updater.readthedocs.io/en/stable/configuration/registries/)
+              registries: 
+                - name: Docker Hub
+                  prefix: docker.io
+                  api_url: https://registry-1.docker.io
+                  credentials: pullsecret:argocd/repo-secret-api
+                  defaultns: library
+                  default: true
+                              
+    repoURL: 'https://argoproj.github.io/argo-helm'
+    targetRevision: 0.8.5
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions: null

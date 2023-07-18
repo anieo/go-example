@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-docker push anieo/go-example:latest
+docker push --all-tags anieo/go-example

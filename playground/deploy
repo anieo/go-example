@@ -1,13 +1,19 @@
 #! /bin/bash
 Green='\033[0;32m'
 NC='\033[0m' 
-WDir="$( dirname -- "$0"; )/playground"
+WDir="$( dirname -- "$0"; )"
 
 echo -e "${Green}Starting Kind Cluster${NC}"
 cd "${WDir}" || exit
 kind create cluster --name go-cluster --config "./kind-config.yaml"
 
 echo -e "${Green}deploying test nodes${NC}"
+helm repo add argo https://argoproj.github.io/argo-helm
+helm upgrade --install argocd argocd -n argocd 
+helm upgrade --install argocd argo/argo-cd -n argocd -f $WDir/argo-values.yml  
+kubectl apply -f argocd/
+password="$(kubectl get secret -n argocd argocd-initial-admin-secret -o json | jq '.data.password' | base64 -d)"
+echo -e "ARGOCD ADMIN USERNAME : admin \nARGOCD ADMIN PASSWORD: $password"
 # kubectl create ns monitoring 
 # kubectl create ns http
 # kubectl create ns nginx

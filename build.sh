@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-docker build -t go-example:latest -t anieo/go-example:latest .
+docker build -t anieo/go-example:latest -t anieo/go-example:$(git describe --tags) .
