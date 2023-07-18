@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"os"
 
@@ -28,4 +29,6 @@ func main() {
 	http.HandleFunc("/ping", ping)
 	http.Handle("/metrics", promhttp.Handler())
 	http.ListenAndServe(":"+port, nil)
+	fmt.Println("listening on port " + port + "!")
+
 }
