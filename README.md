@@ -7,11 +7,49 @@ Dockerized go api packaged using helm and deployed using **GitOps** approach thr
 ### Dependencies  
 
 create `docker-secret.yaml` containes docker cred that has acess to the repo 
+
+```YAML
+apiVersion: v1
+kind: Secret
+metadata:
+name: repo-secret-api
+namespace: argocd
+type: kubernetes.io/dockerconfigjson
+stringData:
+.dockerconfigjson: |
+    {
+    "auths": {
+    "https://registry-1.docker.io/v2": {
+        "auth": "<DOCKER_LOGIN_TOKEN>"
+        }
+        }
+    }
+```
+
 create `repo.yaml` contains argocd repo secret with write access to this repo
+
+```YAML
+apiVersion: v1
+kind: Secret
+metadata:
+  name: argocd-repo
+  namespace: argocd
+  labels:
+    argocd.argoproj.io/secret-type: repository
+type: Opaque
+stringData:
+  name: github
+  password: <GIT_TOKEN>
+  project: default
+  type: git
+  url: https://github.com/anieo/go-example.git
+  username: anieo
+```
+
 and update you github action secrets 
 
-* DOCKERHUB_USERNAME
-* DOCKERHUB_TOKEN
+* DOCKERHUB_USERNAME : Docker Hub username
+* DOCKERHUB_TOKEN : Docker Hub Password
 
 ### INFRA
 
