@@ -28,7 +28,7 @@ func main() {
 	port := os.Getenv("PORT")
 	http.HandleFunc("/ping", ping)
 	http.Handle("/metrics", promhttp.Handler())
-	http.ListenAndServe(":"+port, nil)
 	fmt.Println("listening on port " + port + "!")
+	http.ListenAndServe(":"+port, nil)
 
 }
