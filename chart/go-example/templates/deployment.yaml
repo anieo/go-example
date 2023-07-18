@@ -35,10 +35,10 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
             - name: PORT
-              value: {{.Values.service.port}}
+              value: {{.Values.service.port | quote}}
           ports:
             - name: http
-              containerPort: "{{.Values.service.port}}"
+              containerPort: {{.Values.service.port }}
               protocol: TCP
           livenessProbe:
             httpGet:
