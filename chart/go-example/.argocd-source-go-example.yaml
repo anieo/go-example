@@ -1,0 +1,8 @@
+helm:
+  parameters:
+  - name: image.repository
+    value: anieo/go-example
+    forcestring: true
+  - name: image.tag
+    value: v0.0-9-gc4c6e5d
+    forcestring: true
