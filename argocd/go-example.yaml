@@ -10,6 +10,9 @@ metadata:
     argocd-image-updater.argoproj.io/test.allow-tags: 'regexp:^v[0-9]+.[0-9]+-[0-9]+-[0-9a-zA-Z]+$'
     argocd-image-updater.argoproj.io/test.update-strategy: latest
     argocd-image-updater.argoproj.io/write-back-method: git
+
+    argocd-image-updater.argoproj.io/test.helm.image-name: image.repository
+    argocd-image-updater.argoproj.io/test.helm.image-tag: image.tag
 spec:
   destination:
     name: in-cluster
