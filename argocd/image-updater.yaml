@@ -57,7 +57,7 @@ spec:
               registries: 
                 - name: Docker Hub
                   prefix: docker.io
-                  api_url: https://registry-1.docker.io
+                  api_url: https://index.docker.io/v1/
                   credentials: pullsecret:argocd/repo-secret-api
                   defaultns: library
                   default: true
