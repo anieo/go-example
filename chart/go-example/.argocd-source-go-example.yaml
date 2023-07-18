@@ -4,5 +4,5 @@ helm:
     value: anieo/go-example
     forcestring: true
   - name: image.tag
-    value: 0bdaa557d1cec01ecc9acf497ab979febd1c1857
+    value: 373cde7f3747a6e07e6b42f57cd74993b1b66e0c
     forcestring: true
