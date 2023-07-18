@@ -19,7 +19,7 @@ spec:
     path: chart/go-example
     helm:
       releaseName: go-example
-    repoURL: 'https://github.com/anie/go-example.git'
+    repoURL: 'https://github.com/anieo/go-example.git'
     targetRevision: main
   syncPolicy:
     automated:
