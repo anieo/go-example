@@ -26,4 +26,4 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
-          tags: anieo/go-example:${{ github.head_ref }}-${{ github.sha }}
+          tags: anieo/go-example:${{ github.sha }}
