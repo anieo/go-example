@@ -8,7 +8,7 @@ on:
       - 'argocd/**'
       - 'chart/**'
       - 'playground/**'
-      * '*.md'
+      - '*.md'
 
 jobs:
   docker:
